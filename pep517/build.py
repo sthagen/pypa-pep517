@@ -3,13 +3,13 @@
 import argparse
 import logging
 import os
-import toml
 import shutil
+import tempfile
+
+import tomli
 
 from .envbuild import BuildEnvironment
 from .wrappers import Pep517HookCaller
-from .dirtools import tempdir, mkdir_p
-from .compat import FileNotFoundError
 
 log = logging.getLogger(__name__)
 
@@ -31,8 +31,8 @@ def load_system(source_dir):
     Load the build system from a source dir (pyproject.toml).
     """
     pyproject = os.path.join(source_dir, 'pyproject.toml')
-    with open(pyproject) as f:
-        pyproject_data = toml.load(f)
+    with open(pyproject, 'rb') as f:
+        pyproject_data = tomli.load(f)
     return pyproject_data['build-system']
 
 
@@ -64,7 +64,7 @@ def _do_build(hooks, env, dist, dest):
     env.pip_install(reqs)
     log.info('Installed dynamic build dependencies')
 
-    with tempdir() as td:
+    with tempfile.TemporaryDirectory() as td:
         log.info('Trying to build %s in %s', dist, td)
         build_name = 'build_{dist}'.format(**locals())
         build = getattr(hooks, build_name)
@@ -76,7 +76,7 @@ def _do_build(hooks, env, dist, dest):
 def build(source_dir, dist, dest=None, system=None):
     system = system or load_system(source_dir)
     dest = os.path.join(source_dir, dest or 'dist')
-    mkdir_p(dest)
+    os.makedirs(dest, exist_ok=True)
 
     validate_system(system)
     hooks = Pep517HookCaller(
@@ -110,6 +110,9 @@ parser.add_argument(
 
 
 def main(args):
+    log.warning('pep517.build is deprecated. '
+                'Consider switching to https://pypi.org/project/build/')
+
     # determine which dists to build
     dists = list(filter(None, (
         'sdist' if args.source or not args.binary else None,

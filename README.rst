@@ -4,8 +4,11 @@ API to call PEP 517 hooks
 `PEP 517 <https://www.python.org/dev/peps/pep-0517/>`_ specifies a standard
 API for systems which build Python packages.
 
-This package contains wrappers around the hooks specified by PEP 517. It
-provides:
+`PEP 660 <https://www.python.org/dev/peps/pep-0660/>`_ extends it with a build
+mode that leads to editable installs.
+
+This package contains wrappers around the hooks specified by PEP 517 and
+PEP 660. It provides:
 
 - A mechanism to call the hooks in a subprocess, so they are isolated from
   the current process.
@@ -19,12 +22,12 @@ Usage—you are responsible for ensuring build requirements are available:
 .. code-block:: python
 
     import os
-    import toml
+    import tomli
     from pep517.wrappers import Pep517HookCaller
 
     src = 'path/to/source'  # Folder containing 'pyproject.toml'
     with open(os.path.join(src, 'pyproject.toml')) as f:
-        build_sys = toml.load(f)['build-system']
+        build_sys = tomli.load(f)['build-system']
 
     print(build_sys['requires'])  # List of static requirements
     # The caller is responsible for installing these and running the hooks in

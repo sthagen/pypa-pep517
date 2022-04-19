@@ -1,14 +1,13 @@
-from os.path import dirname, abspath, join as pjoin
 import tarfile
-from testpath import modified_env, assert_isfile
-from testpath.tempdir import TemporaryDirectory
-try:
-    from unittest.mock import patch, call
-except ImportError:
-    from mock import patch, call  # Python 2 fallback
 import zipfile
+from os.path import abspath, dirname
+from os.path import join as pjoin
+from unittest.mock import call, patch
 
-from pep517.envbuild import build_sdist, build_wheel, BuildEnvironment
+from testpath import assert_isfile, modified_env
+from testpath.tempdir import TemporaryDirectory
+
+from pep517.envbuild import BuildEnvironment, build_sdist, build_wheel
 
 SAMPLES_DIR = pjoin(dirname(abspath(__file__)), 'samples')
 BUILDSYS_PKGS = pjoin(SAMPLES_DIR, 'buildsys_pkgs')
