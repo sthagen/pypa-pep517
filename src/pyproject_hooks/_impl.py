@@ -8,17 +8,7 @@ from os.path import abspath
 from os.path import join as pjoin
 from subprocess import STDOUT, check_call, check_output
 
-from .in_process import _in_proc_script_path
-
-__all__ = [
-    'BackendUnavailable',
-    'BackendInvalid',
-    'HookMissing',
-    'UnsupportedOperation',
-    'default_subprocess_runner',
-    'quiet_subprocess_runner',
-    'Pep517HookCaller',
-]
+from ._in_process import _in_proc_script_path
 
 
 def write_json(obj, path, **kwargs):
@@ -40,9 +30,9 @@ class BackendUnavailable(Exception):
 class BackendInvalid(Exception):
     """Will be raised if the backend is invalid."""
     def __init__(self, backend_name, backend_path, message):
+        super().__init__(message)
         self.backend_name = backend_name
         self.backend_path = backend_path
-        self.message = message
 
 
 class HookMissing(Exception):
@@ -100,7 +90,7 @@ def norm_and_check(source_tree, requested):
     return abs_requested
 
 
-class Pep517HookCaller:
+class BuildBackendHookCaller:
     """A wrapper around a source directory to be built with a PEP 517 backend.
 
     :param source_dir: The path to the source directory, containing

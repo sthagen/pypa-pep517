@@ -7,16 +7,16 @@ from os.path import join as pjoin
 from unittest.mock import Mock
 
 import pytest
-import tomli
 from testpath import assert_isfile, modified_env
 from testpath.tempdir import TemporaryDirectory, TemporaryWorkingDirectory
 
-from pep517.wrappers import (
+from pyproject_hooks import (
     BackendUnavailable,
-    Pep517HookCaller,
+    BuildBackendHookCaller,
     UnsupportedOperation,
     default_subprocess_runner,
 )
+from pyproject_hooks._compat import tomllib
 
 SAMPLES_DIR = pjoin(dirname(abspath(__file__)), 'samples')
 BUILDSYS_PKGS = pjoin(SAMPLES_DIR, 'buildsys_pkgs')
@@ -25,8 +25,8 @@ BUILDSYS_PKGS = pjoin(SAMPLES_DIR, 'buildsys_pkgs')
 def get_hooks(pkg, **kwargs):
     source_dir = pjoin(SAMPLES_DIR, pkg)
     with open(pjoin(source_dir, 'pyproject.toml'), 'rb') as f:
-        data = tomli.load(f)
-    return Pep517HookCaller(
+        data = tomllib.load(f)
+    return BuildBackendHookCaller(
         source_dir, data['build-system']['build-backend'], **kwargs
     )
 
