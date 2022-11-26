@@ -1,4 +1,4 @@
-"""Wrappers to build Python packages using PEP 517 hooks
+"""Wrappers to call pyproject.toml-based build backend hooks.
 """
 
 from ._impl import (
@@ -11,7 +11,7 @@ from ._impl import (
     quiet_subprocess_runner,
 )
 
-__version__ = '0.13.0'
+__version__ = '1.0.0'
 __all__ = [
     'BackendUnavailable',
     'BackendInvalid',
