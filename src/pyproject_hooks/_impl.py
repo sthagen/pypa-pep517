@@ -98,7 +98,7 @@ def quiet_subprocess_runner(
 ) -> None:
     """Call the subprocess while suppressing output.
 
-    This uses :func:`subprocess.run` with `PIPE` under the hood.
+    This uses :func:`subprocess.run` with `stdout=PIPE, stderr=STDOUT` under the hood.
     """
     env = os.environ.copy()
     if extra_environ:
@@ -111,7 +111,6 @@ def quiet_subprocess_runner(
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         check=True,
-        text=True,
     )
 
 
