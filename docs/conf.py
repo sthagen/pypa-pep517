@@ -48,4 +48,6 @@ intersphinx_mapping = {
 
 extlinks = {
     "pypi": ("https://pypi.org/project/%s", "%s"),
+    "issue": ("https://github.com/pypa/pyproject-hooks/issues/%s", "#%s"),
+    "pull": ("https://github.com/pypa/pyproject-hooks/pull/%s", "PR #%s"),
 }
