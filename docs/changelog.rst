@@ -5,9 +5,9 @@ v1.2
 ----
 
 - Improve interoperability with ``importlib.metadata``, fixing a regression
-  in setuptools compatibility in 1.1 (:pull:`199`).
+  in setuptools compatibility in 1.1 (PR :pr:`199`).
 - Clean up the ``_in_process`` directory inside the package from ``sys.path``
-  before imporing the backend (:pull:`193`).
+  before imporing the backend (PR :pr:`193`).
 
 v1.1
 ----
