@@ -5,9 +5,9 @@ v1.2
 ----
 
 - Improve interoperability with ``importlib.metadata``, fixing a regression
-  in setuptools compatibility in 1.1 (#199).
+  in setuptools compatibility in 1.1 (PR :pr:`199`).
 - Clean up the ``_in_process`` directory inside the package from ``sys.path``
-  before imporing the backend (#193).
+  before imporing the backend (PR :pr:`193`).
 
 v1.1
 ----
@@ -39,7 +39,7 @@ v0.13
 
 - Remove support for end-of-life Pythons. Now requires Python3.6+.
 - Remove support for ``toml`` package. Now requires ``tomli``.
-- Rely on preferred "files" API on Python 3.9 and later (#140).
+- Rely on preferred "files" API on Python 3.9 and later (:issue:`140`).
 
 v0.12
 -----
