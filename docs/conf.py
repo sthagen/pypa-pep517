@@ -16,7 +16,7 @@ author = "Thomas Kluyver"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.extlinks",
+    "sphinx_issues",
 ]
 
 toc_object_entries_show_parents = "hide"
@@ -46,6 +46,4 @@ intersphinx_mapping = {
 # -- Options for extlinks ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html#configuration
 
-extlinks = {
-    "pypi": ("https://pypi.org/project/%s", "%s"),
-}
+issues_github_path = "pypa/pyproject-hooks"
