@@ -16,7 +16,6 @@ author = "Thomas Kluyver"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.extlinks",
     "sphinx_issues",
 ]
 
@@ -47,4 +46,4 @@ intersphinx_mapping = {
 # -- Options for extlinks ----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html#configuration
 
-issues_github_path = 'pypa/pyproject-hooks'
+issues_github_path = "pypa/pyproject-hooks"
