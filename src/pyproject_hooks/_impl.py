@@ -104,6 +104,7 @@ def quiet_subprocess_runner(
     if extra_environ:
         env.update(extra_environ)
 
+    # Capturing output in case it fails (available on the exception object)
     subprocess.run(
         cmd,
         cwd=cwd,
