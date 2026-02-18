@@ -53,8 +53,11 @@ class BackendUnavailable(Exception):
         # Preserving arg order for the sake of API backward compatibility.
         self.backend_name = backend_name
         self.backend_path = backend_path
-        self.traceback = traceback
-        super().__init__(message or "Error while importing backend")
+        self.traceback = traceback or ""
+        super().__init__(
+            f"{message or 'Error while importing backend'}"
+            + (f"\n\nTraceback:\n{self.traceback}" if self.traceback else "")
+        )
 
 
 class HookMissing(Exception):
@@ -117,12 +120,9 @@ def norm_and_check(source_tree: str, requested: str) -> str:
 
     abs_source = os.path.abspath(source_tree)
     abs_requested = os.path.normpath(os.path.join(abs_source, requested))
-    # We have to use commonprefix for Python 2.7 compatibility. So we
-    # normalise case to avoid problems because commonprefix is a character
-    # based comparison :-(
     norm_source = os.path.normcase(abs_source)
     norm_requested = os.path.normcase(abs_requested)
-    if os.path.commonprefix([norm_source, norm_requested]) != norm_source:
+    if os.path.commonpath([norm_source, norm_requested]) != norm_source:
         raise ValueError("paths must be inside source tree")
 
     return abs_requested
