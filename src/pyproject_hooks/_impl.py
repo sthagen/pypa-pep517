@@ -53,8 +53,11 @@ class BackendUnavailable(Exception):
         # Preserving arg order for the sake of API backward compatibility.
         self.backend_name = backend_name
         self.backend_path = backend_path
-        self.traceback = traceback
-        super().__init__(message or "Error while importing backend")
+        self.traceback = traceback or ""
+        super().__init__(
+            f"{message or 'Error while importing backend'}"
+            + (f"\n\nTraceback:\n{self.traceback}" if self.traceback else "")
+        )
 
 
 class HookMissing(Exception):
